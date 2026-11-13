@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <script>
+      // Phones: the layout is the 393 px Figma frame and the browser (or the app's webview) scales it to the
+      // screen width: ×0.916 on a 360 pt screen, 1:1 on 393, ×1.023 / ×1.12 on 402 / 440. Tablets and desktop
+      // (and `?fit=0`) keep device-width.
+      (function () {
+        var w = Math.min(screen.width, screen.height);
+        if (w <= 480 && w !== 393 && !/[?&]fit=0\b/.test(location.search)) {
+          document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=393, viewport-fit=cover');
+          // WebKit reports env(safe-area-inset-*) in device points and the page is then scaled by w / 393:
+          // --vp-inv (393 / w) takes that scale back out, so a 59 pt inset stays 59 pt (styles/app.css).
+          document.documentElement.style.setProperty('--vp-inv', String(393 / w));
+        }
+      })();
+    </script>
+    <meta name="theme-color" content="#3a9cf0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Выходные" />
+    <link rel="icon" href="data:," />
+    <title>Выходные</title>
+    <script type="module" crossorigin src="./assets/index-DvTv4Wt3.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-Bub5zAi9.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

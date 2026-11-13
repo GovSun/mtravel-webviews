@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <script>
+      // Phones: the layout is the 360 px Figma frame and the browser (or the app's webview) scales it
+      // to the screen width: 1:1 on a 360 pt screen, ×1.117 / ×1.17 / ×1.222 on 402 / 420 / 440 pt,
+      // ×1.083 on 390: type, spacing, photos, buttons. Tablets and desktop (and `?fit=0`)
+      // keep device-width.
+      (function () {
+        var w = Math.min(screen.width, screen.height);
+        if (w <= 480 && w !== 360 && !/[?&]fit=0\b/.test(location.search)) {
+          document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=360, viewport-fit=cover');
+          // WebKit reports env(safe-area-inset-*) in device points, and the page is then scaled by
+          // screen / 360: --vp-inv (360 / w) takes that scale back out, so 62 pt stays 62 pt (tokens.css).
+          document.documentElement.style.setProperty('--vp-inv', String(360 / w));
+        }
+      })();
+    </script>
+    <!-- Status-bar strip in a Safari tab: dark over the cover; the screen switches it to white with the white appbar. -->
+    <meta name="theme-color" content="#0f0f13" />
+    <!-- Added to the Home Screen it opens full screen with the photo under the status bar, like the app's webview. -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Экскурсия" />
+    <link rel="icon" href="data:," />
+    <title>Экскурсия</title>
+    <script type="module" crossorigin src="./assets/index-DD5ZPwkl.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-N4ca54Rd.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
